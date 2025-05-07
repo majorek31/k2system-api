@@ -24,8 +24,8 @@ public static class EndpointValidationExtensions
 
                 if (result.IsValid) return await next(context);
                 
-                var errors = result.Errors.Select(x => new { x.PropertyName, x.ErrorMessage });
-                return Results.BadRequest(errors);
+                var errorList = result.Errors.Select(x => new { x.PropertyName, x.ErrorMessage });
+                return Results.BadRequest(new { errors = errorList});
 
             };
         });

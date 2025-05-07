@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Database;
 using WebAPI.Extensions;
@@ -14,6 +15,9 @@ builder.Services.AddMediatR(x =>
 {
     x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 });
+
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
 builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
 {
     optionsBuilder.UseNpgsql(builder.Configuration["Database:ConnectionString"]);
