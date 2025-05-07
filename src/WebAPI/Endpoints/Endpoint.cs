@@ -1,4 +1,6 @@
-﻿namespace WebAPI.Endpoints;
+﻿using WebAPI.Extensions;
+
+namespace WebAPI.Endpoints;
 
 public abstract class Endpoint : IEndpoint
 {
@@ -23,6 +25,7 @@ public abstract class Endpoint : IEndpoint
         .WithName(name)
         .WithTags(tag)
         .WithDescription(description)
+        .WithValidation<TRequest>()
         .Accepts<TRequest>("application/json")
         .Produces<TResponse>(StatusCodes.Status200OK)
         .WithOpenApi();
