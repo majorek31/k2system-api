@@ -3,7 +3,7 @@ using WebAPI.Repositories.UserRepository;
 
 namespace WebAPI.Features.Auth.Commands.Register;
 
-public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
+public class RegisterRequestValidator : AbstractValidator<RegisterDto>
 {
     public RegisterRequestValidator(IUserRepository userRepository)
     {

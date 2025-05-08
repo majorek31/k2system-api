@@ -10,8 +10,8 @@ public class AuthEndpoint : Endpoint
     {
         var group = route.MapGroup("/auth");
 
-        Configure<RegisterRequest, Unit>(
-            group.MapPost("/register", async (RegisterRequest request, IMediator mediator) =>
+        Configure<RegisterDto, Unit>(
+            group.MapPost("/register", async (RegisterDto request, IMediator mediator) =>
             {
                 var result = await mediator.Send(new RegisterCommand(request));
                 return Results.Ok(result);
