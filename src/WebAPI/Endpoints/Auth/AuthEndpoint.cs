@@ -26,9 +26,12 @@ public class AuthEndpoint : Endpoint
             group.MapPost("/login", async (LoginDto request, IMediator mediator, HttpContext context) =>
             {
                 var userAgent = context.Request.Headers.UserAgent;
+                if (userAgent.Count > 255)
+                    return Results.StatusCode(StatusCodes.Status413PayloadTooLarge);
                 var result = await mediator.Send(new LoginRequest(request, userAgent));
                 return Results.Ok(result);
-            }),
+            })
+            .Produces(StatusCodes.Status413PayloadTooLarge),
             "Login endpoint",
             "Auth", 
             "Allows users to request access token as well as refresh token"
