@@ -2,7 +2,9 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Database;
+using WebAPI.Entities;
 using WebAPI.Extensions;
+using WebAPI.Repositories.RefreshTokenRepository;
 using WebAPI.Repositories.UserRepository;
 using WebAPI.Services;
 
@@ -23,6 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
     optionsBuilder.UseNpgsql(builder.Configuration["Database:ConnectionString"]);
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services

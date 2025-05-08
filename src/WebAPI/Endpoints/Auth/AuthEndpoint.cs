@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using WebAPI.Features.Auth.Commands;
 using WebAPI.Features.Auth.Commands.Register;
+using WebAPI.Features.Auth.Queries.Login;
 
 namespace WebAPI.Endpoints.Auth;
 
@@ -13,12 +14,25 @@ public class AuthEndpoint : Endpoint
         Configure<RegisterDto, Unit>(
             group.MapPost("/register", async (RegisterDto request, IMediator mediator) =>
             {
-                var result = await mediator.Send(new RegisterCommand(request));
-                return Results.Ok(result);
+                await mediator.Send(new RegisterCommand(request));
+                return Results.Created();
             }),
             "Register endpoint",
             "Auth",
             "Allows users to register onto the website"
         );
+        
+        Configure<LoginDto, LoginResponse>(
+            group.MapPost("/login", async (LoginDto request, IMediator mediator, HttpContext context) =>
+            {
+                var userAgent = context.Request.Headers.UserAgent;
+                var result = await mediator.Send(new LoginRequest(request, userAgent));
+                return Results.Ok(result);
+            }),
+            "Login endpoint",
+            "Auth", 
+            "Allows users to request access token as well as refresh token"
+        );
+        
     }
 }

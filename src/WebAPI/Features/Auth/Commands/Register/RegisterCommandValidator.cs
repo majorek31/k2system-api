@@ -3,9 +3,9 @@ using WebAPI.Repositories.UserRepository;
 
 namespace WebAPI.Features.Auth.Commands.Register;
 
-public class RegisterRequestValidator : AbstractValidator<RegisterDto>
+public class RegisterCommandValidator : AbstractValidator<RegisterDto>
 {
-    public RegisterRequestValidator(IUserRepository userRepository)
+    public RegisterCommandValidator(IUserRepository userRepository)
     {
         RuleFor(x => x.Email)
             .EmailAddress().WithMessage("Invalid email format")
