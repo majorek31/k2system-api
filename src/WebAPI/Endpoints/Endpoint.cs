@@ -28,5 +28,6 @@ public abstract class Endpoint : IEndpoint
         .WithValidation<TRequest>()
         .Accepts<TRequest>("application/json")
         .Produces<TResponse>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest)
         .WithOpenApi();
 }
