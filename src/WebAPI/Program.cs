@@ -2,16 +2,12 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Database;
-using WebAPI.Entities;
 using WebAPI.Extensions;
-using WebAPI.Repositories.RefreshTokenRepository;
-using WebAPI.Repositories.UserRepository;
-using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfiguration();
 
 builder.Services.AddMediatR(x =>
 {
@@ -24,11 +20,10 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
 {
     optionsBuilder.UseNpgsql(builder.Configuration["Database:ConnectionString"]);
 });
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services
+    .AddRepositories()
+    .AddServices()
     .AddEndpoints();
 
 var app = builder.Build();
