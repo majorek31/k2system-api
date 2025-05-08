@@ -5,7 +5,7 @@ using WebAPI.Services;
 
 namespace WebAPI.Features.Auth.Queries.Login;
 
-public class LoginRequestHandler(IUserRepository userRepository, IAuthService authService, IRefreshTokenRepository refreshTokenRepository) : IRequestHandler<LoginRequest, LoginResponse>
+public class LoginRequestHandler(IUserRepository userRepository, IAuthService authService) : IRequestHandler<LoginRequest, LoginResponse>
 {
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
