@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using WebAPI.Repositories.RefreshTokenRepository;
 
-namespace WebAPI.Features.Auth.Queries.Refresh;
+namespace WebAPI.Features.Auth.Commands.Refresh;
 
-public class RefreshRequestValidator : AbstractValidator<RefreshDto>
+public class RefreshCommandValidator : AbstractValidator<RefreshDto>
 {
-    public RefreshRequestValidator(IRefreshTokenRepository refreshTokenRepository)
+    public RefreshCommandValidator(IRefreshTokenRepository refreshTokenRepository)
     {
         RuleFor(x => x.Token)
             .NotEmpty().WithMessage("Token must be provided")

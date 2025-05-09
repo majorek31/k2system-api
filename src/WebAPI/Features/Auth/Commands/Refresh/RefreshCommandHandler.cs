@@ -3,9 +3,9 @@ using WebAPI.Features.Auth.Queries.Login;
 using WebAPI.Repositories.RefreshTokenRepository;
 using WebAPI.Services;
 
-namespace WebAPI.Features.Auth.Queries.Refresh;
+namespace WebAPI.Features.Auth.Commands.Refresh;
 
-public class RefreshRequestHandler(IRefreshTokenRepository refreshTokenRepository, IAuthService authService) : IRequestHandler<RefreshCommand, LoginResponse>
+public class RefreshCommandHandler(IRefreshTokenRepository refreshTokenRepository, IAuthService authService) : IRequestHandler<RefreshCommand, LoginResponse>
 {
     public async Task<LoginResponse> Handle(RefreshCommand command, CancellationToken cancellationToken)
     {
