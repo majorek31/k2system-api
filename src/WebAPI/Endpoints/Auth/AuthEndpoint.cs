@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Features.Auth.Commands;
 using WebAPI.Features.Auth.Commands.Register;
 using WebAPI.Features.Auth.Queries.Login;
@@ -16,14 +17,15 @@ public class AuthEndpoint : Endpoint
             {
                 await mediator.Send(new RegisterCommand(request));
                 return Results.Created();
-            }),
+            })
+            .Produces(StatusCodes.Status201Created),
             "Register endpoint",
             "Auth",
             "Allows users to register onto the website"
         );
         
         Configure<LoginDto, LoginResponse>(
-            group.MapPost("/login", async (LoginDto request, IMediator mediator, HttpContext context) =>
+            group.MapGet("/login", async ([AsParameters] LoginDto request, IMediator mediator, HttpContext context) =>
             {
                 var userAgent = context.Request.Headers.UserAgent;
                 if (userAgent.Count > 255)

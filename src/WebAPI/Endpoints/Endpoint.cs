@@ -26,7 +26,7 @@ public abstract class Endpoint : IEndpoint
         .WithTags(tag)
         .WithDescription(description)
         .WithValidation<TRequest>()
-        .Accepts<TRequest>("application/json")
+        // .Accepts<TRequest>("application/json", additionalContentTypes: ["application/x-www-form-urlencoded"])
         .Produces<TResponse>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
         .WithOpenApi();
