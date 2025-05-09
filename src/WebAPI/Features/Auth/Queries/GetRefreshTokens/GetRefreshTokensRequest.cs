@@ -1,3 +1,5 @@
-﻿namespace WebAPI.Features.Auth.Queries.GetRefreshTokens;
+﻿using MediatR;
 
-public record GetRefreshTokensRequest();
+namespace WebAPI.Features.Auth.Queries.GetRefreshTokens;
+
+public record GetRefreshTokensRequest : IRequest<RefreshTokenDto>;
