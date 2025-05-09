@@ -1,6 +1,10 @@
 using System.Reflection;
+using System.Text;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using WebAPI.Database;
 using WebAPI.Extensions;
 
@@ -22,6 +26,26 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
 });
 
 builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["JWT:Key"] ??
+                throw new Exception("JWT:Key not provided"))),
+        };
+    });
+builder.Services.AddAuthorization();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services
     .AddRepositories()
     .AddServices()
     .AddEndpoints();
@@ -37,5 +61,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapEndpoints();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
