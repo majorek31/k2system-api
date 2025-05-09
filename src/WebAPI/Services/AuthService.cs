@@ -9,7 +9,7 @@ using WebAPI.Repositories.UserRepository;
 
 namespace WebAPI.Services;
 
-public class AuthService(IConfiguration configuration, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository) : IAuthService 
+public class AuthService(IConfiguration configuration, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IHttpContextAccessor contextAccessor) : IAuthService 
 {
     private static readonly JwtSecurityTokenHandler JwtSecurityTokenHandler = new();
     public Task<string> CreateJsonWebToken(User user)
@@ -50,5 +50,20 @@ public class AuthService(IConfiguration configuration, IUserRepository userRepos
         };
         await refreshTokenRepository.CreateAsync(refreshToken);
         return refreshToken;
+    }
+
+    public async Task<User?> GetUser()
+    {
+        var email = contextAccessor
+            .HttpContext?
+            .User ?
+            .Claims?
+            .FirstOrDefault(c => c.Type == ClaimTypes.Email)?
+            .Value;
+        if (email is null)
+            return null;
+
+        var user = await userRepository.GetUserByEmail(email);
+        return user;
     }
 }
