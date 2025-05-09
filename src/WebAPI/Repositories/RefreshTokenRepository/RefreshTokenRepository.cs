@@ -8,6 +8,18 @@ public class RefreshTokenRepository(AppDbContext context) : Repository<RefreshTo
 {
     public async Task<RefreshToken?> GetRefreshTokenByTokenAsync(string token)
     {
-        return await _context.RefreshTokens.FirstOrDefaultAsync(x => x.Token == token);
+        return await _context.RefreshTokens
+            .Include(x => x.User)
+            .FirstOrDefaultAsync(x => x.Token == token);
+    }
+
+    public async Task<IEnumerable<RefreshToken>> GetRefreshTokensByUser(User user)
+    {
+        var tokens = await context
+            .RefreshTokens
+            .Where(x => x.UserId == user.Id && x.IsRevoked == false)
+            .AsNoTracking()
+            .ToListAsync();
+        return tokens;
     }
 }
