@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using FluentValidation;
@@ -49,7 +50,6 @@ builder.Services
     .AddRepositories()
     .AddServices()
     .AddEndpoints();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -59,6 +59,20 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler(handler =>
+    {
+        handler.Run(async context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            context.Response.ContentType = MediaTypeNames.Text.Plain;
+
+            await context.Response.WriteAsync("Internal server error");
+        });
+    });
+}
 
 app.MapEndpoints();
 

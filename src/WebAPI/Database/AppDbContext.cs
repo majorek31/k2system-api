@@ -4,10 +4,15 @@ using WebAPI.Entities;
 
 namespace WebAPI.Database;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<EditableContent> EditableContents { get; set; }
+    
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {}
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
