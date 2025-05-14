@@ -8,6 +8,6 @@ public class UserRepository(AppDbContext context) : Repository<User>(context), I
 {
     public async Task<User?> GetUserByEmail(string email)
     {
-        return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        return await context.Users.FirstOrDefaultAsync(x => x.Email == email);
     }
 }

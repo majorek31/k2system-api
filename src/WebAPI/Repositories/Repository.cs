@@ -4,41 +4,40 @@ using WebAPI.Database;
 
 namespace WebAPI.Repositories;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public class Repository<T>(AppDbContext context) : IRepository<T>
+    where T : BaseEntity
 {
-    protected readonly AppDbContext _context;
-    public Repository(AppDbContext context) => _context = context;
-    
+
     public async Task<IEnumerable<T>> GetAsync()
     {
-        return await _context.Set<T>().AsNoTracking().ToListAsync();
+        return await context.Set<T>().AsNoTracking().ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(int id)
     {
-        return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task CreateAsync(T entity)
     {
-        await _context.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        await context.AddAsync(entity);
+        await context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(T entity)
     {
-        _context.Remove(entity);
-        await _context.SaveChangesAsync();
+        context.Remove(entity);
+        await context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(T entity)
     {
-        _context.Entry(entity).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
+        context.Entry(entity).State = EntityState.Modified;
+        await context.SaveChangesAsync();
     }
 
     public async Task<int> CountAsync()
     {
-        return await _context.Set<T>().CountAsync();
+        return await context.Set<T>().CountAsync();
     }
 }

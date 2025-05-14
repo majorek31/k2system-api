@@ -8,7 +8,7 @@ public class ScopeRepository(AppDbContext context) : Repository<Scope>(context),
 {
     public async Task<IEnumerable<Scope>> GetScopesByUserAsync(User user)
     {
-        var userWithScopes = await _context
+        var userWithScopes = await context
             .Users
             .Include(u => u.Scopes)
             .FirstOrDefaultAsync(u => u.Id == user.Id);

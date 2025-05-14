@@ -8,7 +8,7 @@ public class RefreshTokenRepository(AppDbContext context) : Repository<RefreshTo
 {
     public async Task<RefreshToken?> GetRefreshTokenByTokenAsync(string token)
     {
-        return await _context.RefreshTokens
+        return await context.RefreshTokens
             .Include(x => x.User)
             .FirstOrDefaultAsync(x => x.Token == token);
     }
