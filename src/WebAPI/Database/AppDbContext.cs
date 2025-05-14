@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using WebAPI.Common;
 using WebAPI.Entities;
 
@@ -9,11 +10,20 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<EditableContent> EditableContents { get; set; }
+    public DbSet<Scope> Scopes { get; set; }
     
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {}
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Scopes)
+            .WithMany(s => s.Users)
+            .UsingEntity(j => j.ToTable("UserScopes"));
+    }
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entityEntry in ChangeTracker.Entries<BaseEntity>()

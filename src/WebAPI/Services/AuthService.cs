@@ -3,23 +3,34 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Writers;
 using WebAPI.Entities;
 using WebAPI.Repositories.RefreshTokenRepository;
+using WebAPI.Repositories.ScopeRepository;
 using WebAPI.Repositories.UserRepository;
 
 namespace WebAPI.Services;
 
-public class AuthService(IConfiguration configuration, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IHttpContextAccessor contextAccessor) : IAuthService 
+public class AuthService(IConfiguration configuration,
+    IUserRepository userRepository,
+    IRefreshTokenRepository refreshTokenRepository,
+    IHttpContextAccessor contextAccessor,
+    IScopeRepository scopeRepository) : IAuthService 
 {
     private static readonly JwtSecurityTokenHandler JwtSecurityTokenHandler = new();
-    public Task<string> CreateJsonWebToken(User user)
+    public async Task<string> CreateJsonWebToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Key"] ?? throw new Exception("JWT Key not provided in appsettings.json")));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var userScopes = await scopeRepository.GetScopesByUserAsync(user);
+        var scopeClaims = userScopes
+            .Select(s => new Claim("scope", s.Value));
         var claims = new [] {
             // new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // dont feel like using ID as subject would be a big improvement here
-            new Claim(JwtRegisteredClaimNames.Email, user.Email)
-        };
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            // new Claim("scope", "read:content")
+        }.Concat(scopeClaims);
+        
         var token = new JwtSecurityToken(
             claims: claims,
             issuer: configuration["JWT:Issuer"] ?? "k2system-api",
@@ -29,7 +40,7 @@ public class AuthService(IConfiguration configuration, IUserRepository userRepos
             signingCredentials: credentials
         );
 
-        return Task.FromResult(JwtSecurityTokenHandler.WriteToken(token));
+        return JwtSecurityTokenHandler.WriteToken(token);
     }
 
     public async Task<bool> ValidateCredentials(string email, string password)

@@ -42,6 +42,8 @@ builder.Services
                 throw new Exception("JWT:Key not provided"))),
         };
     });
+
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddHttpContextAccessor();
@@ -51,7 +53,7 @@ builder.Services
     .AddServices()
     .AddEndpoints();
 var app = builder.Build();
-
+DatabaseSeeder.Seed(app.Services);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

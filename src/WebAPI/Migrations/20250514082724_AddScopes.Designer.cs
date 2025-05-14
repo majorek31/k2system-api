@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI.Database;
@@ -11,9 +12,11 @@ using WebAPI.Database;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250514082724_AddScopes")]
+    partial class AddScopes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace WebAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("ScopeUser", b =>
-                {
-                    b.Property<int>("ScopesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ScopesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("UserScopes", (string)null);
-                });
 
             modelBuilder.Entity("WebAPI.Entities.EditableContent", b =>
                 {
@@ -129,11 +117,16 @@ namespace WebAPI.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Scopes");
                 });
@@ -173,21 +166,6 @@ namespace WebAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ScopeUser", b =>
-                {
-                    b.HasOne("WebAPI.Entities.Scope", null)
-                        .WithMany()
-                        .HasForeignKey("ScopesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebAPI.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebAPI.Entities.EditableContent", b =>
                 {
                     b.HasOne("WebAPI.Entities.User", "LastEditor")
@@ -208,6 +186,22 @@ namespace WebAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAPI.Entities.Scope", b =>
+                {
+                    b.HasOne("WebAPI.Entities.User", "User")
+                        .WithMany("Scopes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAPI.Entities.User", b =>
+                {
+                    b.Navigation("Scopes");
                 });
 #pragma warning restore 612, 618
         }
