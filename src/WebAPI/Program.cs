@@ -46,8 +46,17 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policyBuilder =>
+    {
+        policyBuilder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddHttpContextAccessor();
-
 builder.Services
     .AddRepositories()
     .AddServices()
@@ -77,7 +86,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.MapEndpoints();
-
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
