@@ -10,3 +10,14 @@ public class User : BaseEntity
     public required string PasswordHash { get; set; }
     public List<Scope> Scopes { get; set;} = new();
 }
+
+public class UserPersonal : User
+{
+    public DateTime BirthDay { get; set; }
+}
+
+public class UserCompany : User
+{
+    public required string CompanyName { get; set; }
+    public string? VATNumber { get; set; }
+}

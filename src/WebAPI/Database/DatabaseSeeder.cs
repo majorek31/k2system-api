@@ -22,7 +22,7 @@ public static class DatabaseSeeder
 
         if (!context.Users.Any())
         {
-            var user = new User
+            var user = new UserPersonal()
             {
                 Email = "admin@k2systems.pl",
                 FirstName = "admin",

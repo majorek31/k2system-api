@@ -11,10 +11,30 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<EditableContent> EditableContents { get; set; }
     public DbSet<Scope> Scopes { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<OrderItem>()
+            .HasOne(oi => oi.Product)
+            .WithMany()
+            .HasForeignKey(oi => oi.ProductId);
+        modelBuilder.Entity<OrderItem>()
+            .Property(oi => oi.TotalPrice)
+            .HasColumnType("decimal(18,2)");
+        
+        modelBuilder.Entity<OrderItem>()
+            .Ignore(oi => oi.TotalPrice);
+
+        modelBuilder.Entity<User>()
+            .HasDiscriminator<string>("UserType")
+            .HasValue<UserPersonal>("Personal")
+            .HasValue<UserCompany>("Company");
+        
         modelBuilder.Entity<User>()
             .HasMany(u => u.Scopes)
             .WithMany(s => s.Users)
