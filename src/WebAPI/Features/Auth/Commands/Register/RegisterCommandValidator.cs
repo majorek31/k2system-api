@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using WebAPI.Dtos;
 using WebAPI.Repositories.UserRepository;
 
 namespace WebAPI.Features.Auth.Commands.Register;

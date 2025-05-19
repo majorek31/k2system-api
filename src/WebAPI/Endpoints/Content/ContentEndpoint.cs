@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using WebAPI.Dtos;
 using WebAPI.Extensions;
 using WebAPI.Features.Content.Commands.UpdateContent;
 using WebAPI.Features.Content.Queries.GetTranslationsForPage;

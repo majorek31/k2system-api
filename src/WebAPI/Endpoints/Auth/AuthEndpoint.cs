@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using WebAPI.Dtos;
 using WebAPI.Features.Auth.Commands;
 using WebAPI.Features.Auth.Commands.Register;
 using WebAPI.Features.Auth.Queries.Login;

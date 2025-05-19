@@ -17,6 +17,8 @@ public static class EndpointAuthorizationExtensions
                     .FindAll("scope")
                     .Select(c => c.Value)
                     .ToList();
+                if (scopeClaim.Contains("admin"))
+                    return await next(context);
                 
                 if (scopeClaim.Contains(scope))
                     return await next(context);

@@ -1,3 +1,3 @@
-﻿namespace WebAPI.Features.Auth.Commands;
+﻿namespace WebAPI.Dtos;
 
 public record RegisterDto(string Email, string FirstName, string LastName, string Password);

@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MediatR;
+using WebAPI.Dtos;
 using WebAPI.Repositories.ProductRepository;
 
 namespace WebAPI.Features.Product.Queries.GetAllProducts;

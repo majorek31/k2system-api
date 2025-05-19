@@ -11,12 +11,11 @@ public enum OrderStatus
 }
 public class Order : BaseEntity
 {
-
     public int UserId { get; set; }
     public User User { get; set; }
 
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
     public ICollection<OrderItem> OrderItems { get; set; }
 
-    public decimal TotalAmount => OrderItems?.Sum(i => i.TotalPrice) ?? 0;
+    public decimal TotalAmount => OrderItems.Sum(i => i.TotalPrice);
 }

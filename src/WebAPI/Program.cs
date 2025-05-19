@@ -63,11 +63,10 @@ builder.Services
     .AddEndpoints();
 var app = builder.Build();
 DatabaseSeeder.Seed(app.Services);
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

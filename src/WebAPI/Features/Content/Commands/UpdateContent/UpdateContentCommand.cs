@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using WebAPI.Dtos;
 
 namespace WebAPI.Features.Content.Commands.UpdateContent;
 

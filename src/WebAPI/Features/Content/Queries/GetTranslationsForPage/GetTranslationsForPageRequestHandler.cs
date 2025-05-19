@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MediatR;
+using WebAPI.Dtos;
 using WebAPI.Repositories.EditableContentRepository;
 
 namespace WebAPI.Features.Content.Queries.GetTranslationsForPage;

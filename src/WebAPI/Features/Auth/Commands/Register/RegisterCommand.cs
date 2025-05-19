@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using WebAPI.Dtos;
 
 namespace WebAPI.Features.Auth.Commands.Register;
 

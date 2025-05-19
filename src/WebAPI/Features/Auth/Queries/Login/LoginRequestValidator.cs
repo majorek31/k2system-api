@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using WebAPI.Dtos;
 using WebAPI.Services;
 
 namespace WebAPI.Features.Auth.Queries.Login;

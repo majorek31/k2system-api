@@ -14,6 +14,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<ProductImage> ProductImages { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,11 +31,20 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         
         modelBuilder.Entity<OrderItem>()
             .Ignore(oi => oi.TotalPrice);
-
+        
         modelBuilder.Entity<User>()
             .HasDiscriminator<string>("UserType")
             .HasValue<UserPersonal>("Personal")
             .HasValue<UserCompany>("Company");
+        
+        modelBuilder.Entity<Product>()
+            .Navigation(p => p.ProductImages)
+            .AutoInclude();
+        
+        modelBuilder.Entity<Product>()
+            .HasMany(p => p.ProductImages)
+            .WithOne(pi => pi.Product)
+            .HasForeignKey(pi => pi.ProductId);
         
         modelBuilder.Entity<User>()
             .HasMany(u => u.Scopes)
