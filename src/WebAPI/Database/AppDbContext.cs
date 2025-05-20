@@ -31,6 +31,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         
         modelBuilder.Entity<OrderItem>()
             .Ignore(oi => oi.TotalPrice);
+
+        modelBuilder.Entity<Review>()
+            .Navigation(x => x.User)
+            .AutoInclude();
         
         modelBuilder.Entity<User>()
             .HasDiscriminator<string>("UserType")

@@ -12,7 +12,7 @@ public class ContentEndpoint : Endpoint
     {
         var group = route.MapGroup("/content");
 
-        Configure<TranslationsResponseDto>(
+        Configure<IEnumerable<ContentDto>>(
             group.MapGet("/{page}", async (string page, string? lang, HttpContext context, IMediator mediator) =>
             {
                 var result = await mediator.Send(new GetTranslationsForPageRequest(page, lang ?? "en"));
@@ -23,7 +23,7 @@ public class ContentEndpoint : Endpoint
             "Responds with content for desired page in desired language");
 
         Configure<UpdateContentDto, Unit>(
-            group.MapPut("/{page}/{key}",
+            group.MapPatch("/{page}/{key}",
                 async (UpdateContentDto dto, string page, string key, string? lang, IMediator mediator) =>
                 {
                     await mediator.Send(new UpdateContentCommand(dto, page, key, lang ?? "en"));

@@ -5,13 +5,11 @@ using WebAPI.Repositories.EditableContentRepository;
 
 namespace WebAPI.Features.Content.Queries.GetTranslationsForPage;
 
-public class GetTranslationsForPageRequestHandler(IEditableContentRepository contentRepository) : IRequestHandler<GetTranslationsForPageRequest, TranslationsResponseDto>
+public class GetTranslationsForPageRequestHandler(IEditableContentRepository contentRepository) : IRequestHandler<GetTranslationsForPageRequest, IEnumerable<ContentDto>>
 {
-    public async Task<TranslationsResponseDto> Handle(GetTranslationsForPageRequest request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ContentDto>> Handle(GetTranslationsForPageRequest request, CancellationToken cancellationToken)
     {
         var content = await contentRepository.GetEditableContentAsync(request.Page, request.Language);
-        var result = content
-            .Select(x => x.Adapt<ContentDto>());
-        return new TranslationsResponseDto(result);
+        return content.Adapt<IEnumerable<ContentDto>>();
     }
 }

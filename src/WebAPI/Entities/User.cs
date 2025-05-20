@@ -8,6 +8,7 @@ public class User : BaseEntity
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string PasswordHash { get; set; }
+    public string UserType { get; set; }
     public List<Scope> Scopes { get; set;} = new();
 }
 

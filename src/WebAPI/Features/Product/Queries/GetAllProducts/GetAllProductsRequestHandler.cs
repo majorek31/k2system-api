@@ -5,11 +5,11 @@ using WebAPI.Repositories.ProductRepository;
 
 namespace WebAPI.Features.Product.Queries.GetAllProducts;
 
-public class GetAllProductsRequestHandler(IProductRepository productRepository) : IRequestHandler<GetAllProductsRequest, ProductsDto>
+public class GetAllProductsRequestHandler(IProductRepository productRepository) : IRequestHandler<GetAllProductsRequest, IEnumerable<ProductDto>>
 {
-    public async Task<ProductsDto> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ProductDto>> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
     {
         var products = await productRepository.GetAsync();
-        return new ProductsDto(products.Adapt<IEnumerable<ProductDto>>());
+        return products.Adapt<IEnumerable<ProductDto>>();
     }
 }

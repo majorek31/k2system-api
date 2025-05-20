@@ -52,7 +52,7 @@ public class AuthEndpoint : Endpoint
             "Allows users to refresh JWT token using provided RefreshToken"
         );
 
-        Configure<RefreshTokenDto>(
+        Configure<IEnumerable<TokenDto>>(
             group.MapGet("/refreshTokens", async (IMediator mediator) =>
             {
                 var result = await mediator.Send(new GetRefreshTokensRequest());

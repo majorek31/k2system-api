@@ -13,7 +13,7 @@ public class ProductEndpoint : Endpoint
     {
         var group = route.MapGroup("product");
 
-        Configure<ProductsDto>(
+        Configure<IEnumerable<ProductDto>>(
             group.MapGet("/", async (IMediator mediator) =>
             {
                 var result = await mediator.Send(new GetAllProductsRequest());
