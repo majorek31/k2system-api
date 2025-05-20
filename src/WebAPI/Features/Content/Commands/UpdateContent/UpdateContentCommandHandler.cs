@@ -8,8 +8,7 @@ namespace WebAPI.Features.Content.Commands.UpdateContent;
 
 public class UpdateContentCommandHandler(
     IEditableContentRepository editableContentRepository,
-    IAuthService authService
-    ) : IRequestHandler<UpdateContentCommand, Unit>
+    IAuthService authService) : IRequestHandler<UpdateContentCommand, Unit>
 {
     public async Task<Unit> Handle(UpdateContentCommand request, CancellationToken cancellationToken)
     {

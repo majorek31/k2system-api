@@ -9,14 +9,11 @@ public class RegisterCommandHandler(IUserRepository userRepository) : IRequestHa
 {
     public async Task<Unit> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var isFree = await userRepository.GetUserByEmail(request.Dto.Email) is null;
-        if (!isFree)
-        {
-            throw new NotImplementedException();
-        }
-
+        var isPersonal = request.Dto.UserType.Equals("Personal", StringComparison.InvariantCultureIgnoreCase);
+        Entities.User user = isPersonal ? request.Dto.Adapt<UserPersonal>() : request.Dto.Adapt<UserCompany>();
+        user.UserType = isPersonal ? "Personal" : "Company";
         var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Dto.Password);
-        var user = request.Dto.Adapt<User>();
+        
         user.PasswordHash = passwordHash;
         await userRepository.CreateAsync(user);
         return Unit.Value;

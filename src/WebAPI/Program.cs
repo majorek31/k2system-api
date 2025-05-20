@@ -3,9 +3,11 @@ using System.Reflection;
 using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using WebAPI.Common.Exceptions;
 using WebAPI.Database;
 using WebAPI.Extensions;
 
@@ -70,19 +72,19 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-if (!app.Environment.IsDevelopment())
+app.UseExceptionHandler(errorApp =>
 {
-    app.UseExceptionHandler(handler =>
+    errorApp.Run(async context =>
     {
-        handler.Run(async context =>
-        {
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            context.Response.ContentType = MediaTypeNames.Text.Plain;
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
 
-            await context.Response.WriteAsync("Internal server error");
-        });
+        if (exception is NotFoundException)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            await context.Response.WriteAsync(exception.Message);
+        }
     });
-}
+});
 
 app.MapEndpoints();
 app.UseCors("AllowAll");

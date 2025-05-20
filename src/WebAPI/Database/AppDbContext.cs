@@ -16,11 +16,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<ProductImage> ProductImages { get; set; }
     public DbSet<Review> Reviews { get; set; }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Scope>()
+            .HasAlternateKey(s => s.Value);
+        
         modelBuilder.Entity<OrderItem>()
             .HasOne(oi => oi.Product)
             .WithMany()
@@ -54,6 +57,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasMany(u => u.Scopes)
             .WithMany(s => s.Users)
             .UsingEntity(j => j.ToTable("UserScopes"));
+        
+        modelBuilder.Entity<User>()
+            .Navigation(u => u.Scopes)
+            .AutoInclude();
     }
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {

@@ -2,6 +2,7 @@
 using WebAPI.Dtos;
 using WebAPI.Extensions;
 using WebAPI.Features.Product.Commands.CreateProduct;
+using WebAPI.Features.Product.Commands.DeleteProduct;
 using WebAPI.Features.Product.Queries.GetAllProducts;
 using WebAPI.Features.Product.Queries.GetProductById;
 
@@ -43,11 +44,21 @@ public class ProductEndpoint : Endpoint
                     var newLocation = $"/product/{result.Id}";
                     return Results.Created(newLocation, new());
                 })
-            .RequireScope("write:product")
-            .Produces(StatusCodes.Status201Created),
+                .RequireScope("write:product")
+                .Produces(StatusCodes.Status201Created),
             "CreateProduct",
             "Product",
             "Creates new product based on provided data"
-            );
+        );
+        Configure<Unit>(
+            group.MapDelete("/{productId:int}", async (IMediator mediator, int productId) =>
+            {
+                await mediator.Send(new DeleteProductCommand(productId));
+                return Results.NoContent();
+            }).RequireScope("write:product"),
+            "DeleteProduct",
+            "Product",
+            "Deletes product based on provided data"
+        );
     }
 }

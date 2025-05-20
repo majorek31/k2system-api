@@ -20,5 +20,5 @@ public class UserPersonal : User
 public class UserCompany : User
 {
     public required string CompanyName { get; set; }
-    public string? VATNumber { get; set; }
+    public required string VATNumber { get; set; }
 }

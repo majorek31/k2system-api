@@ -27,5 +27,10 @@ public class RegisterCommandValidator : AbstractValidator<RegisterDto>
         
         RuleFor(x => x.LastName)
             .NotEmpty().WithMessage("LastName must not be empty");
+        
+        RuleFor(x => x.UserType)
+            .NotEmpty().WithMessage("UserType must not be empty")
+            .Must((type) => type.ToLower() == "personal" || type.ToLower() == "company")
+            .WithMessage("UserType must be \"personal\" or \"company\"");
     }
 }
