@@ -15,8 +15,28 @@ public class GetCurrentUserQueryHandler(IAuthService authService) : IRequestHand
             throw new Exception("User not found");
         return user switch
         {
-            UserCompany company => company.Adapt<UserDto>(),
-            UserPersonal personal => personal.Adapt<UserDto>(),
+            UserCompany company => new UserDto(
+                Email: company.Email,
+                UserType: "Company",
+                FirstName: company.FirstName,
+                LastName: company.LastName,
+                CreatedAt: company.CreatedAt,
+                Scopes: company.Scopes.Adapt<ICollection<ScopeDto>>(),
+                VATNumber: company.VATNumber,
+                CompanyName: company.CompanyName
+            ),
+
+            UserPersonal personal => new UserDto(
+                Email: personal.Email,
+                UserType: "Personal",
+                FirstName: personal.FirstName,
+                LastName: personal.LastName,
+                CreatedAt: personal.CreatedAt,
+                Scopes: personal.Scopes.Adapt<ICollection<ScopeDto>>(),
+                VATNumber: null,
+                CompanyName: null
+            ),
+
             _ => throw new Exception("User not found")
         };
     }
