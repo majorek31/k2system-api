@@ -1,4 +1,5 @@
 ﻿using WebAPI.Repositories.EditableContentRepository;
+using WebAPI.Repositories.OrderRepository;
 using WebAPI.Repositories.ProductRepository;
 using WebAPI.Repositories.RefreshTokenRepository;
 using WebAPI.Repositories.ReviewRepository;
@@ -18,6 +19,8 @@ public static class RepositoryExtensions
         
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IReviewRepository, ReviewRepository>();
+        
+        services.AddScoped<IOrderRepository, OrderRepository>();
         return services;
     }
 }

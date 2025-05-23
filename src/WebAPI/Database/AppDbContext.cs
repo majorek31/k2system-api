@@ -23,11 +23,18 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<Scope>()
             .HasAlternateKey(s => s.Value);
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.OrderStatus)
+            .HasConversion<string>();
         
         modelBuilder.Entity<OrderItem>()
             .HasOne(oi => oi.Product)
             .WithMany()
             .HasForeignKey(oi => oi.ProductId);
+        modelBuilder.Entity<OrderItem>()
+            .Navigation(oi => oi.Product)
+            .AutoInclude();
         modelBuilder.Entity<OrderItem>()
             .Property(oi => oi.TotalPrice)
             .HasColumnType("decimal(18,2)");

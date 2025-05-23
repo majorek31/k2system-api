@@ -63,6 +63,7 @@ builder.Services
     .AddRepositories()
     .AddServices()
     .AddEndpoints();
+MapsterExtensions.RegisterMapping();
 var app = builder.Build();
 DatabaseSeeder.Seed(app.Services);
 

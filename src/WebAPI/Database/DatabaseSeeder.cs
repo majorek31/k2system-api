@@ -4,7 +4,7 @@ namespace WebAPI.Database;
 
 public static class DatabaseSeeder
 {
-    public static async void Seed(IServiceProvider serviceProvider)
+    public static async Task Seed(IServiceProvider serviceProvider)
     {
         var context = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
         await context.Database.EnsureCreatedAsync();
@@ -14,7 +14,10 @@ public static class DatabaseSeeder
             {
                 new Scope { Value = "admin" },
                 new Scope { Value = "write:content" },
-                new Scope { Value = "read:user" }
+                new Scope { Value = "write:review" },
+                new Scope { Value = "write:order" },
+                new Scope { Value = "read:user" },
+                new Scope { Value = "read:order" },
             };
             await context.Scopes.AddRangeAsync(scopes);
             await context.SaveChangesAsync();
