@@ -30,7 +30,7 @@ public class OrderEndpoint : Endpoint
                 return Results.Ok(result);
             }),
             "GetOrders",
-            "Orders",
+            "Order",
             "Returns all orders of the authenticated user");
         Configure<OrderDto>(
             group.MapGet("/{orderId:int}", async (int orderId, IMediator mediator) =>
@@ -40,7 +40,7 @@ public class OrderEndpoint : Endpoint
             })
             .RequireAuthorization(),
             "GetOrder", 
-            "Orders",
+            "Order",
             "Return order based on it's id");
     }
 }
