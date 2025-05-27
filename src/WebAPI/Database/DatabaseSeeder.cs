@@ -41,7 +41,7 @@ public static class DatabaseSeeder
         if (!context.EditableContents.Any())
         {
             var admin = context.Users.First();
-            var contents = new List<EditableContent>
+            var englishContents = new List<EditableContent>
             {
                 // LandingPage
                 new EditableContent { LastEditor = admin, Content = "LandingPage:TitleLandingPage", Key = "TitleLandingPage", Page = "LandingPage", Language = "en" },
@@ -137,105 +137,12 @@ public static class DatabaseSeeder
                 new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:PasswordInputLogin", Key = "PasswordInputLogin", Page = "RegisterLoginPage", Language = "en" },
                 new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:CheckPasswordInputLogin", Key = "CheckPasswordInputLogin", Page = "RegisterLoginPage", Language = "en" },
                 new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:LoginButtonName", Key = "LoginButtonName", Page = "RegisterLoginPage", Language = "en" },
-                
-                
-                
-                // LandingPage
-                new EditableContent { LastEditor = admin, Content = "LandingPage:TitleLandingPage", Key = "TitleLandingPage", Page = "LandingPage", Language = "cz" },
-
-                // Footer
-                new EditableContent { LastEditor = admin, Content = "Footer:TitleFooterPage", Key = "TitleFooterPage", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:TitleContact", Key = "TitleContact", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:TitleOffers", Key = "TitleOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:GmailContact", Key = "GmailContact", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:LocationContact", Key = "LocationContact", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:PhoneNumberContact", Key = "PhoneNumberContact", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:FirstOfferOffers", Key = "FirstOfferOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:SecondOfferOffers", Key = "SecondOfferOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:ThirdOfferOffers", Key = "ThirdOfferOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:FourthOfferOffers", Key = "FourthOfferOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:FifthOfferOffers", Key = "FifthOfferOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:SixthOfferOffers", Key = "SixthOfferOffers", Page = "Footer", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "Footer:CoopyRight", Key = "CoopyRight", Page = "Footer", Language = "cz" },
-
-                // NavBar
-                new EditableContent { LastEditor = admin, Content = "NavBar:MainPageLink", Key = "MainPageLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:DeliverLink", Key = "DeliverLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:AboutUsLink", Key = "AboutUsLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:RegisterLink", Key = "RegisterLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:ServiceLink", Key = "ServiceLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:ShopLink", Key = "ShopLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:ContactLink", Key = "ContactLink", Page = "NavBar", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "NavBar:SettingsLink", Key = "SettingsLink", Page = "NavBar", Language = "cz" },
-
-                // MainPage
-                new EditableContent { LastEditor = admin, Content = "MainPage:GreetingsTitle", Key = "GreetingsTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:GreetingsContent", Key = "GreetingsContent", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:FirstInfoTitle", Key = "FirstInfoTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:FirstInfoContent", Key = "FirstInfoContent", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceTitle", Key = "ServiceTitle", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceFirstSubtitle", Key = "ServiceFirstSubtitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceFirstContent", Key = "ServiceFirstContent", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceSecondSubtitle", Key = "ServiceSecondSubtitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceSecondContent", Key = "ServiceSecondContent", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceThirdSubtitle", Key = "ServiceThirdSubtitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceThirdContent", Key = "ServiceThirdContent", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceFourthSubtitle", Key = "ServiceFourthSubtitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ServiceFourthContent", Key = "ServiceFourthContent", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:SecondInfoTitle", Key = "SecondInfoTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:SecondInfoContent", Key = "SecondInfoContent", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:LocationTitle", Key = "LocationTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:FirstContactTitle", Key = "FirstContactTitle", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:FirstEmail", Key = "FirstEmail", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:SecondEmail", Key = "SecondEmail", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ThirdEmail", Key = "ThirdEmail", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:SecondContactTitle", Key = "SecondContactTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:FirstPhoneNumber", Key = "FirstPhoneNumber", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:SecondPhoneNumber", Key = "SecondPhoneNumber", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:ThirdPhoneNumber", Key = "ThirdPhoneNumber", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:ThirdContactTitle", Key = "ThirdContactTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:CompanyAdress", Key = "CompanyAdress", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterSubscriptionTitle", Key = "PrinterSubscriptionTitle", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterFirstSubscriptionOffer", Key = "PrinterFirstSubscriptionOffer", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterFirstSubscriptionFirstFeature", Key = "PrinterFirstSubscriptionFirstFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterFirstSubscriptionSecondFeature", Key = "PrinterFirstSubscriptionSecondFeature", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterSecondSubscriptionOffer", Key = "PrinterSecondSubscriptionOffer", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterSecondSubscriptionFirstFeature", Key = "PrinterSecondSubscriptionFirstFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterSecondSubscriptionSecondFeature", Key = "PrinterSecondSubscriptionSecondFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterSecondSubscriptionThirdFeature", Key = "PrinterSecondSubscriptionThirdFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterSecondSubscriptionFourthFeature", Key = "PrinterSecondSubscriptionFourthFeature", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterThirdSubscriptionOffer", Key = "PrinterThirdSubscriptionOffer", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterThirdSubscriptionFirstFeature", Key = "PrinterThirdSubscriptionFirstFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterThirdSubscriptionSecondFeature", Key = "PrinterThirdSubscriptionSecondFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterThirdSubscriptionThirdFeature", Key = "PrinterThirdSubscriptionThirdFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterThirdSubscriptionFourthFeature", Key = "PrinterThirdSubscriptionFourthFeature", Page = "MainPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "MainPage:PrinterThirdSubscriptionFifthFeature", Key = "PrinterThirdSubscriptionFifthFeature", Page = "MainPage", Language = "cz" },
-
-                new EditableContent { LastEditor = admin, Content = "MainPage:RateTitle", Key = "RateTitle", Page = "MainPage", Language = "cz" },
-
-                // RegisterLoginPage
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:RegisterTitle", Key = "RegisterTitle", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:NameInputRegister", Key = "NameInputRegister", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:SecondNameInputRegister", Key = "SecondNameInputRegister", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:EmailInputRegister", Key = "EmailInputRegister", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:PasswordInputRegister", Key = "PasswordInputRegister", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:CheckPasswordInputRegister", Key = "CheckPasswordInputRegister", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:RegisterButtonName", Key = "RegisterButtonName", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:LoginTitle", Key = "LoginTitle", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:EmailInputLogin", Key = "EmailInputLogin", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:PasswordInputLogin", Key = "PasswordInputLogin", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:CheckPasswordInputLogin", Key = "CheckPasswordInputLogin", Page = "RegisterLoginPage", Language = "cz" },
-                new EditableContent { LastEditor = admin, Content = "RegisterLoginPage:LoginButtonName", Key = "LoginButtonName", Page = "RegisterLoginPage", Language = "cz" }
             };
-
+            var czechContents = englishContents.Select(x => new EditableContent
+                { LastEditor = x.LastEditor, Content = x.Content, Page = x.Page, Key = x.Key, Language = "cz" });
+            var polishContents = englishContents.Select(x => new EditableContent
+                { LastEditor = x.LastEditor, Content = x.Content, Page = x.Page, Key = x.Key, Language = "pl" });
+            var contents = englishContents.Concat(czechContents).Concat(polishContents);
             await context.EditableContents.AddRangeAsync(contents);
             await context.SaveChangesAsync();
         }
