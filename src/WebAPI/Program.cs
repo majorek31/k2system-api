@@ -52,10 +52,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policyBuilder =>
     {
+        var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>();
+
         policyBuilder
-            .AllowAnyOrigin()
+            .WithOrigins(origins)
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowAnyHeader()
+            .AllowCredentials();
     });
 });
 builder.Services.AddHttpContextAccessor();
