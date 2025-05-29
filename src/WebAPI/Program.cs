@@ -89,10 +89,10 @@ app.UseExceptionHandler(errorApp =>
         }
     });
 });
-
 app.MapEndpoints();
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.Run();

@@ -32,4 +32,12 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\9-Dokument_2025-05-14_205424.pdf" />
+    </ItemGroup>
+
 </Project>

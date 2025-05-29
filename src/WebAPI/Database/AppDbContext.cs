@@ -16,6 +16,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<ProductImage> ProductImages { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<Media> Medias { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
