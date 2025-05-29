@@ -10,6 +10,8 @@ public class Product : BaseEntity
     public string Sku { get; set; }
     public int QuantityInStock { get; set; }
     public decimal Price { get; set; }
+    public string Manufacturer { get; set; }
+    public string Tag { get; set; }
 
     public ICollection<ProductImage> ProductImages { get; set; }
 }

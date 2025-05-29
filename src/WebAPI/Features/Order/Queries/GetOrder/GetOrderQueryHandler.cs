@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using MediatR;
 using WebAPI.Dtos;
+using WebAPI.Entities;
 using WebAPI.Repositories.OrderRepository;
 using WebAPI.Repositories.ScopeRepository;
 using WebAPI.Services;
@@ -18,7 +19,7 @@ public class GetOrderQueryHandler(IOrderRepository orderRepository,
             throw new Exception("User not found");
         var order = await orderRepository.GetByIdAsync(request.OrderId);
         var userScopes = user.Scopes;
-        var readOrderScope = await scopeRepository.FindByValue("read:scope") ?? throw new Exception("Scope not found");
+        var readOrderScope = await scopeRepository.FindByValue("read:order") ?? throw new Exception("Scope not found");
         var adminScope = await scopeRepository.FindByValue("admin") ?? throw new Exception("Scope not found");
 
         var userHasScope = userScopes.Contains(readOrderScope) || userScopes.Contains(adminScope);

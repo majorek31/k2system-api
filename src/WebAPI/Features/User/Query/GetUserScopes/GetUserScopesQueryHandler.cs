@@ -2,6 +2,7 @@
 using MediatR;
 using WebAPI.Common.Exceptions;
 using WebAPI.Dtos;
+using WebAPI.Entities;
 using WebAPI.Repositories.ScopeRepository;
 using WebAPI.Repositories.UserRepository;
 

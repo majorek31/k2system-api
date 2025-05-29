@@ -3,4 +3,4 @@ using WebAPI.Dtos;
 
 namespace WebAPI.Features.Order.Queries.GetOrders;
 
-public record GetOrdersQuery() : IRequest<IEnumerable<OrderDto>>;
+public record GetOrdersByUserQuery(int UserId) : IRequest<IEnumerable<OrderDto>>;

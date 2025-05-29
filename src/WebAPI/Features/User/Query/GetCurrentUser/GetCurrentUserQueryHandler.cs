@@ -16,6 +16,7 @@ public class GetCurrentUserQueryHandler(IAuthService authService) : IRequestHand
         return user switch
         {
             UserCompany company => new UserDto(
+                Id: company.Id,
                 Email: company.Email,
                 UserType: "Company",
                 FirstName: company.FirstName,
@@ -27,6 +28,7 @@ public class GetCurrentUserQueryHandler(IAuthService authService) : IRequestHand
             ),
 
             UserPersonal personal => new UserDto(
+                Id: personal.Id,
                 Email: personal.Email,
                 UserType: "Personal",
                 FirstName: personal.FirstName,

@@ -8,6 +8,7 @@ using WebAPI.Entities;
 using WebAPI.Repositories.RefreshTokenRepository;
 using WebAPI.Repositories.ScopeRepository;
 using WebAPI.Repositories.UserRepository;
+using Scope = WebAPI.Entities.Scope;
 
 namespace WebAPI.Services;
 

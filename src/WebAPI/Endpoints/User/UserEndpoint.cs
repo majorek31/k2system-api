@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using WebAPI.Dtos;
 using WebAPI.Extensions;
+using WebAPI.Features.Order.Queries.GetOrders;
 using WebAPI.Features.User.Commands.DeleteUser;
 using WebAPI.Features.User.Commands.UpdateUserInfo;
 using WebAPI.Features.User.Commands.UpdateUserScopes;
@@ -91,6 +92,31 @@ public class UserEndpoint : Endpoint
             "Get scopes",
             "User",
             "Get scopes of desired user"
+        );
+        
+        Configure<IEnumerable<OrderDto>>(
+            group.MapGet("/{userId:int}/order", async (IMediator mediator, int userId) =>
+            {
+                var result = await mediator.Send(new GetOrdersByUserQuery(userId));
+                return Results.Ok(result);
+            }).RequireScope("read:order"),
+            "Get Orders By User",
+            "User",
+            "Get orders of desired user"
+        );
+        
+        Configure<IEnumerable<OrderDto>>(
+            group.MapGet("/me/order", async (IMediator mediator, IAuthService authService) =>
+            {
+                var user = await authService.GetUser();
+                if (user is null)
+                    return Results.Unauthorized();
+                var result = await mediator.Send(new GetOrdersByUserQuery(user.Id));
+                return Results.Ok(result);
+            }).RequireAuthorization(),
+            "Get Orders Of Current User",
+            "User",
+            "Get orders of currently logged-in user"
         );
     }
 }

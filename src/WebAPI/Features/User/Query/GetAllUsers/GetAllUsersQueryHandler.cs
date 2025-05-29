@@ -2,8 +2,9 @@
 using MediatR;
 using WebAPI.Dtos;
 using WebAPI.Entities;
-using WebAPI.Features.User.Query.GetAllUsers;
 using WebAPI.Repositories.UserRepository;
+
+namespace WebAPI.Features.User.Query.GetAllUsers;
 
 public class GetAllUsersQueryHandler(IUserRepository userRepository) : IRequestHandler<GetAllUsersQuery, IEnumerable<UserDto>>
 {
@@ -16,6 +17,7 @@ public class GetAllUsersQueryHandler(IUserRepository userRepository) : IRequestH
             return user switch
             {
                 UserCompany company => new UserDto(
+                    Id: company.Id,
                     Email: company.Email,
                     UserType: "Company",
                     FirstName: company.FirstName,
@@ -27,6 +29,7 @@ public class GetAllUsersQueryHandler(IUserRepository userRepository) : IRequestH
                 ),
 
                 UserPersonal personal => new UserDto(
+                    Id: personal.Id,
                     Email: personal.Email,
                     UserType: "Personal",
                     FirstName: personal.FirstName,

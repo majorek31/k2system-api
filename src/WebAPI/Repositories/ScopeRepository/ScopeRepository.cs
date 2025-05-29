@@ -11,7 +11,7 @@ public class ScopeRepository(AppDbContext context) : Repository<Scope>(context),
         return await context.Scopes.FirstOrDefaultAsync(s => s.Value == name);
     }
 
-    public async Task<IEnumerable<Scope>> GetScopesByUserAsync(User user)
+    public async Task<IEnumerable<Scope?>> GetScopesByUserAsync(User user)
     {
         var userWithScopes = await context
             .Users

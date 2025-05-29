@@ -7,5 +7,7 @@ public record ProductDto(int Id,
     DateTime CreatedAt,
     decimal Price,
     string Sku,
+    string Manufacturer,
+    string Tag,
     ICollection<ProductImageDto> ProductImages
 );
